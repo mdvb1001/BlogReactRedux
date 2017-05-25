@@ -27,6 +27,13 @@ class PostsNew extends Component {
         <div className="form-group">
           <label>Title</label>
           <input type="text" className="form-control" {...title} />
+          <div className="text-help">
+            {title.touched ? title.error : ''}
+              {/* ternary JS expression:
+              if title.touched is true then title.error
+              if title.touched is false then do nothing
+              */}
+          </div>
         </div>
 
         <div className="form-group">
@@ -46,12 +53,23 @@ class PostsNew extends Component {
   }
 }
 
+function validate(value) {
+  const errors = {};
+
+  if (!value.title) {
+    errors.title = 'Enter a username';
+  }
+
+  return errors;
+}
+
 // connect: 1sr argument is mapStateToProps, 2nd is mapDispatchToProps
 // reduxFrom: 1st is from config, 2nd is mapStateToProps, 3rd is mapDispatchToProps
 
 export default reduxForm({
   form: 'PostsNewForm',
-  fields: ['title', 'categories', 'content']
+  fields: ['title', 'categories', 'content'],
+  validate
 }, null, { createPost })(PostsNew);
 
 /*
