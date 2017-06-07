@@ -1,10 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, Proptypes } from 'react';
 import { reduxForm } from 'redux-form';
 // acts like the Connect function
 import { createPost } from '../actions/index';
 import { Link } from 'react-router';
 
 class PostsNew extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  };
+  // Try avoid using this... context is being updated in react
+
   render() {
     const { fields: { title, categories, content }, handleSubmit } = this.props;
 
