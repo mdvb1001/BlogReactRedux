@@ -1,4 +1,4 @@
-import React, { Component, Proptypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 // acts like the Connect function
 import { createPost } from '../actions/index';
@@ -9,6 +9,16 @@ class PostsNew extends Component {
     router: PropTypes.object
   };
   // Try avoid using this... context is being updated in react
+
+  onSubmit(props) {
+    this.props.createPost(props)
+      .then(() => {
+        // blog post has been created, navigate the use to the index
+        // We navigate by calling this.context.router.push with the
+        // new path to navigate to.
+        this.context.router.push('/');
+      });
+  }
 
   render() {
     const { fields: { title, categories, content }, handleSubmit } = this.props;
@@ -26,7 +36,7 @@ class PostsNew extends Component {
 
     */
     return (
-      <form onSubmit={handleSubmit(this.props.createPost)}>
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 
         <h3>Create a new post</h3>
 
