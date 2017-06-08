@@ -31,7 +31,7 @@ class PostsIndex extends Component {
           Add a Post
           </Link>
         </div>
-        <h3>Posts</h3>
+        <h4>Posts</h4>
           <ul>{this.renderPosts()}</ul>
       </div>
     );
